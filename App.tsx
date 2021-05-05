@@ -1,21 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import RootStore from "./store/store";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import PlacesNavigator from "./navigation/MainNavigator";
+import { init } from "./helpers/db";
 
-export default function App() {
+init()
+  .then(() => {
+    console.log("Initialized database");
+  })
+  .catch((err) => {
+    console.log("Initializing db failed.");
+    console.log(err);
+  });
+
+type Props = {};
+
+const App: React.FC<Props> = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <RootStore>
+      <NavigationContainer>
+        <PlacesNavigator />
+      </NavigationContainer>
+    </RootStore>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
