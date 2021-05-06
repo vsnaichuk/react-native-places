@@ -2,19 +2,16 @@ import { StyleSheet } from "react-native";
 import Colors from "../../constants/Colors";
 
 const styles = StyleSheet.create({
-  imagePreview: {
-    alignItems: "center",
+  container: {
     backgroundColor: Colors.light,
-    borderRadius: 15,
-    height: 100,
-    justifyContent: "center",
+    borderRadius: 25,
+    flexDirection: "row",
+    padding: 15,
     marginVertical: 10,
-    overflow: "hidden",
-    width: 100,
   },
-  image: {
-    height: "100%",
-    width: "100%",
+  textInput: {
+    color: Colors.dark,
+    fontSize: 18,
   },
 });
 

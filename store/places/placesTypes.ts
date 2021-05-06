@@ -7,6 +7,7 @@ export type PlacesStateType = {
 export type PlaceModel = {
   id?: string;
   title: string;
+  image: string;
 };
 
 export type PlacesActionType = {

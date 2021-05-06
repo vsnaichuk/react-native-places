@@ -6,31 +6,46 @@ import Screen from "../../components/Screen/Screen";
 import Button from "../../components/Button/Button";
 import s from "./styles";
 import Colors from "../../constants/Colors";
-import Input from "../../components/Input/Input";
+import ImagePicker from "../../components/Input/ImagePicker";
+import { useNavigation } from "@react-navigation/native";
+import Input from "../../components/ImagePicker/Input";
 
 const NewPlaceScreen: FC = () => {
-  const [titleValue, setTitleValue] = useState("");
   const { placesStore } = useContext(RootStoreContext);
+  const navigation = useNavigation();
+
+  const [titleValue, setTitleValue] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState({});
 
   const titleChangeHandler = (text: string) => {
     setTitleValue(text);
   };
+  const imageTakenHandler = (imagePath: string) => {
+    setSelectedImage(imagePath);
+  };
+  const locationPickedHandler = useCallback((location: object) => {
+    setSelectedLocation(location);
+  }, []);
 
   const savePlaceHandler = async () => {
     await placesStore.createPlaceAction({ title: titleValue });
-    await placesStore.getPlacesAction();
+    navigation.goBack();
   };
 
   return (
     <Screen style={s.container}>
-      <View style={s.form}>
-        <Input
-          placeholder="Title"
-          onChangeText={titleChangeHandler}
-          value={titleValue}
-        />
-        <Button title="Save Place" onPress={savePlaceHandler} />
-      </View>
+      <Input
+        placeholder="Title"
+        onChangeText={titleChangeHandler}
+        value={titleValue}
+      />
+      <ImagePicker onImageTaken={imageTakenHandler} />
+      {/*<LocationPicker*/}
+      {/*  navigation={navigation}*/}
+      {/*  onLocationPicked={locationPickedHandler}*/}
+      {/*/>*/}
+      <Button title="Save Place" onPress={savePlaceHandler} />
     </Screen>
   );
 };
