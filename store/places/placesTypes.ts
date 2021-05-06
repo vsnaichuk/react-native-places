@@ -5,7 +5,7 @@ export type PlacesStateType = {
 };
 
 export type PlaceModel = {
-  id: string;
+  id?: string;
   title: string;
 };
 

@@ -1,8 +1,8 @@
-import React from "react";
-import NewPlaceScreen from "../screens/NewPlaceScreen";
+import React, { FC } from "react";
+import NewPlaceScreen from "../screens/NewPlaceScreen/NewPlaceScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 
-const PlacesNavigator = () => {
+const PlacesNavigator: FC = () => {
   const Stack = createStackNavigator();
 
   return (

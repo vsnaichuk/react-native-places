@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode } from "react";
+import React, { createContext, FC, ReactNode } from "react";
 import usePlacesContext from "./places/placesContext";
 import { PlacesStoreSchema } from "./places/placesTypes";
 
@@ -13,7 +13,7 @@ type Props = {
 // @ts-ignore
 export const RootStoreContext = createContext<RootStoreSchema>(null);
 
-const RootStore = ({ children }: Props) => {
+const RootStore: FC<Props> = ({ children }) => {
   const placesContext = usePlacesContext();
 
   return (
