@@ -21,7 +21,7 @@ type Props = {
 };
 
 const ImagePicker: FC<Props> = ({ onImageTaken }) => {
-  const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState();
 
   const verifyPermission = async () => {
     const { granted } = await requestMediaLibraryPermissionsAsync();
@@ -65,9 +65,9 @@ const ImagePicker: FC<Props> = ({ onImageTaken }) => {
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
       <View style={s.imagePreview}>
-        {preview ? (
-          <Image style={s.image} source={{ uri: preview }} />
-        ) : (
+        {preview && <Image style={s.image} source={{ uri: preview }} />}
+
+        {!preview && (
           <MaterialCommunityIcons
             color={Colors.medium}
             name="camera"

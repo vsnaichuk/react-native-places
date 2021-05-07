@@ -1,14 +1,12 @@
 import React, { useState, useCallback, FC } from "react";
 import { useContext } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
 import { RootStoreContext } from "../../store/store";
 import Screen from "../../components/Screen/Screen";
 import Button from "../../components/Button/Button";
 import s from "./styles";
-import Colors from "../../constants/Colors";
-import ImagePicker from "../../components/Input/ImagePicker";
+import ImagePicker from "../../components/ImagePicker/ImagePicker";
 import { useNavigation } from "@react-navigation/native";
-import Input from "../../components/ImagePicker/Input";
+import Input from "../../components/Input/Input";
 
 const NewPlaceScreen: FC = () => {
   const { placesStore } = useContext(RootStoreContext);
@@ -29,7 +27,10 @@ const NewPlaceScreen: FC = () => {
   }, []);
 
   const savePlaceHandler = async () => {
-    await placesStore.createPlaceAction({ title: titleValue });
+    await placesStore.createPlaceAction({
+      title: titleValue,
+      image: selectedImage,
+    });
     navigation.goBack();
   };
 
@@ -41,10 +42,10 @@ const NewPlaceScreen: FC = () => {
         value={titleValue}
       />
       <ImagePicker onImageTaken={imageTakenHandler} />
-      {/*<LocationPicker*/}
-      {/*  navigation={navigation}*/}
-      {/*  onLocationPicked={locationPickedHandler}*/}
-      {/*/>*/}
+      <LocationPicker
+        navigation={navigation}
+        onLocationPicked={locationPickedHandler}
+      />
       <Button title="Save Place" onPress={savePlaceHandler} />
     </Screen>
   );

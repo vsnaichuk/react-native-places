@@ -26,7 +26,8 @@
     "react-native-screens": "~3.0.0",
     "react-native-web": "~0.13.12",
     "react-navigation-header-buttons": "^7.0.1",
-    "expo-image-picker": "~10.1.4"
+    "expo-image-picker": "~10.1.4",
+    "expo-location": "~12.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
