@@ -15,18 +15,19 @@ import {
   getCurrentPositionAsync,
   requestForegroundPermissionsAsync,
 } from "expo-location";
+import MapImage from "../MapImage";
 
-type CoordsModel = {
+export type LocationModel = {
   lat: number;
   lng: number;
 };
 type Props = {
-  onLocationPicked: (coords: CoordsModel) => void;
+  onLocationPicked: (location: LocationModel) => void;
 };
 
 const LocationPicker: FC<Props> = ({ onLocationPicked }) => {
   const [isFetching, setIsFetching] = useState(false);
-  const [location, setLocation] = useState<CoordsModel>();
+  const [location, setLocation] = useState<LocationModel>();
 
   const verifyPermission = async () => {
     const { granted } = await requestForegroundPermissionsAsync();
@@ -69,17 +70,17 @@ const LocationPicker: FC<Props> = ({ onLocationPicked }) => {
     await pickOnMap();
   };
 
+  console.log(location);
+
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
       <View style={s.locationPreview}>
-        {location && (
-          <Image style={s.mapImage} source={{ uri: GoogleMapsApiUrl }} />
-        )}
+        {location && <MapImage location={location} />}
         {isFetching && (
           <ActivityIndicator size="large" color={Colors.primary} />
         )}
-        {!(location && isFetching) && (
-          <MaterialCommunityIcons color={Colors.medium} name="map" size={40} />
+        {!location && !isFetching && (
+          <MaterialCommunityIcons color={Colors.medium} name="map" size={50} />
         )}
       </View>
     </TouchableWithoutFeedback>

@@ -7,6 +7,7 @@ import s from "./styles";
 import ImagePicker from "../../components/ImagePicker/ImagePicker";
 import { useNavigation } from "@react-navigation/native";
 import Input from "../../components/Input/Input";
+import LocationPicker from "../../components/LocationPicker/LocationPicker";
 
 const NewPlaceScreen: FC = () => {
   const { placesStore } = useContext(RootStoreContext);
@@ -42,10 +43,7 @@ const NewPlaceScreen: FC = () => {
         value={titleValue}
       />
       <ImagePicker onImageTaken={imageTakenHandler} />
-      <LocationPicker
-        navigation={navigation}
-        onLocationPicked={locationPickedHandler}
-      />
+      <LocationPicker onLocationPicked={locationPickedHandler} />
       <Button title="Save Place" onPress={savePlaceHandler} />
     </Screen>
   );

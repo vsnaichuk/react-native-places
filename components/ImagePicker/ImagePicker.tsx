@@ -71,7 +71,7 @@ const ImagePicker: FC<Props> = ({ onImageTaken }) => {
           <MaterialCommunityIcons
             color={Colors.medium}
             name="camera"
-            size={40}
+            size={50}
           />
         )}
       </View>
