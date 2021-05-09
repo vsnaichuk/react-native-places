@@ -5,7 +5,7 @@ import Colors from "../../constants/Colors";
 
 type Props = {
   width?: string;
-  [inputPropName: string]: any;
+  [index: string]: any;
 };
 
 const Input: FC<Props> = ({ width = "100%", ...otherProps }) => {

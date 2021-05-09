@@ -7,23 +7,22 @@ import s from "./styles";
 import ImagePicker from "../../components/ImagePicker/ImagePicker";
 import { useNavigation } from "@react-navigation/native";
 import Input from "../../components/Input/Input";
-import LocationPicker from "../../components/LocationPicker/LocationPicker";
+import LocationPicker, {
+  LocationType,
+} from "../../components/LocationPicker/LocationPicker";
 
 const NewPlaceScreen: FC = () => {
   const { placesStore } = useContext(RootStoreContext);
   const navigation = useNavigation();
 
-  const [titleValue, setTitleValue] = useState("");
-  const [selectedImage, setSelectedImage] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState({});
+  const [titleValue, setTitleValue] = useState<string>("");
+  const [selectedImage, setSelectedImage] = useState<string>("");
+  const [selectedLocation, setSelectedLocation] = useState<LocationType>(null);
 
-  const titleChangeHandler = (text: string) => {
-    setTitleValue(text);
-  };
-  const imageTakenHandler = (imagePath: string) => {
-    setSelectedImage(imagePath);
-  };
-  const locationPickedHandler = useCallback((location: object) => {
+  const titleChangeHandler = (text: string) => setTitleValue(text);
+  const imageTakenHandler = (imagePath: string) => setSelectedImage(imagePath);
+
+  const locationPickedHandler = useCallback((location) => {
     setSelectedLocation(location);
   }, []);
 

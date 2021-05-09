@@ -1,64 +1,28 @@
-import React, { FC, useState } from "react";
-import {
-  Alert,
-  Image,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import React, { FC, useEffect, useState } from "react";
+import { Alert, Image, TouchableWithoutFeedback, View } from "react-native";
 import s from "./styles";
-import {
-  launchCameraAsync,
-  launchImageLibraryAsync,
-  MediaTypeOptions,
-  requestMediaLibraryPermissionsAsync,
-} from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
+import { useImagePicker } from "../../hooks/useImagePicker";
 
 type Props = {
   onImageTaken: (imagePath: string) => void;
 };
 
 const ImagePicker: FC<Props> = ({ onImageTaken }) => {
-  const [preview, setPreview] = useState();
+  const [preview, pickCameraImage, pickGalleryImage] = useImagePicker();
 
-  const verifyPermission = async () => {
-    const { granted } = await requestMediaLibraryPermissionsAsync();
-
-    if (!granted) {
-      alert("You need to enable permission to access the library.");
-      return false;
+  useEffect(() => {
+    if (preview) {
+      onImageTaken(preview);
     }
-    return true;
-  };
-
-  const pickImage = async (camera: boolean = false) => {
-    const hasPermission = await verifyPermission();
-    if (!hasPermission) return;
-
-    const imgOpts = {
-      mediaTypes: MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [16, 9],
-      quality: 0.5,
-    };
-
-    const resImage = camera
-      ? await launchCameraAsync(imgOpts)
-      : await launchImageLibraryAsync(imgOpts);
-
-    if (!resImage.cancelled) {
-      setPreview(resImage.uri);
-      onImageTaken(resImage.uri);
-    }
-  };
+  }, [preview]);
 
   const handlePress = async () => {
     if (!preview)
       Alert.alert("Chose app", "Which app you want to use?", [
-        { text: "Camera", onPress: () => pickImage(true) },
-        { text: "Gallery", onPress: () => pickImage() },
+        { text: "Camera", onPress: () => pickCameraImage() },
+        { text: "Gallery", onPress: () => pickGalleryImage() },
       ]);
   };
 

@@ -1,85 +1,62 @@
-import React, { FC, useState } from "react";
-import {
-  Alert,
-  Image,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import React, { FC, useEffect, useState } from "react";
+import { TouchableWithoutFeedback, View } from "react-native";
 import s from "./styles";
-
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import { ActivityIndicator } from "react-native";
-import {
-  getCurrentPositionAsync,
-  requestForegroundPermissionsAsync,
-} from "expo-location";
 import MapImage from "../MapImage";
+import { useLocation } from "../../hooks/useLocation";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { RootStackParamList } from "../../navigation/navigationTypes";
 
-export type LocationModel = {
-  lat: number;
-  lng: number;
-};
 type Props = {
-  onLocationPicked: (location: LocationModel) => void;
+  onLocationPicked: (location: LocationType) => void;
 };
+
+export type LocationType = { [index: string]: number } | null;
 
 const LocationPicker: FC<Props> = ({ onLocationPicked }) => {
-  const [isFetching, setIsFetching] = useState(false);
-  const [location, setLocation] = useState<LocationModel>();
+  const [pressCount, setPressCount] = useState<number>(0);
+  const [pickedLocation, setPickedLocation] = useState<LocationType>();
+  const [location, isFetching, getLocation] = useLocation(null);
+  const { navigate } = useNavigation();
+  const { params } = useRoute<RouteProp<RootStackParamList, "NewPlace">>();
+  const mapPickedLocation = params?.mapPickedLocation;
 
-  const verifyPermission = async () => {
-    const { granted } = await requestForegroundPermissionsAsync();
-
-    if (!granted) {
-      alert("Permission to access location was denied");
-      return false;
+  useEffect(() => {
+    if (mapPickedLocation) {
+      setPickedLocation(mapPickedLocation);
+      onLocationPicked(mapPickedLocation);
     }
-    return true;
+    if (!mapPickedLocation && location) {
+      setPickedLocation(location);
+      onLocationPicked(location);
+    }
+  }, [location, mapPickedLocation, onLocationPicked]);
+
+  const pickOnMap = () => {
+    navigate("Map", { initLocation: mapPickedLocation || location });
   };
 
-  const pickOnMap = async () => {
-    const hasPermission = await verifyPermission();
-    if (!hasPermission) return;
-
-    setIsFetching(true);
-    try {
-      const { coords } = await getCurrentPositionAsync({
-        timeout: 5000,
-      });
-      setLocation({
-        lat: coords.latitude,
-        lng: coords.longitude,
-      });
-      onLocationPicked({
-        lat: coords.latitude,
-        lng: coords.longitude,
-      });
-    } catch (err) {
-      Alert.alert(
-        "Could not fetch location!",
-        "Please try again later or pick a location on the map.",
-        [{ text: "Okay" }]
-      );
-    }
-    setIsFetching(false);
+  const getMapLocation = async () => {
+    await getLocation();
   };
 
   const handlePress = async () => {
-    await pickOnMap();
+    if (pressCount === 0) {
+      await getMapLocation();
+      setPressCount(pressCount + 1);
+    } else pickOnMap();
   };
-
-  console.log(location);
 
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
       <View style={s.locationPreview}>
-        {location && <MapImage location={location} />}
+        {pickedLocation && <MapImage location={pickedLocation} />}
         {isFetching && (
           <ActivityIndicator size="large" color={Colors.primary} />
         )}
-        {!location && !isFetching && (
+        {!pickedLocation && !isFetching && (
           <MaterialCommunityIcons color={Colors.medium} name="map" size={50} />
         )}
       </View>
