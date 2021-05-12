@@ -4,10 +4,15 @@ export type PlacesStateType = {
   loading: boolean;
 };
 
+export type LocationType = {
+  [index: string]: number;
+};
+
 export type PlaceModel = {
   id?: string;
   title: string;
   image: string;
+  location: LocationType;
 };
 
 export type PlacesActionType = {

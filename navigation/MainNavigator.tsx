@@ -3,12 +3,24 @@ import { createStackNavigator } from "@react-navigation/stack";
 import NewPlaceScreen from "../screens/NewPlaceScreen/NewPlaceScreen";
 import MapScreen from "../screens/MapScreen/MapScreen";
 import { RootStackParamList } from "./navigationTypes";
+import PlacesListScreen from "../screens/PlacesListScreen.tsx/PlacesListScreen";
 
 const PlacesNavigator: FC = () => {
   const Stack = createStackNavigator<RootStackParamList>();
 
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="Places"
+        component={PlacesListScreen}
+        options={{
+          title: "Places",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
       <Stack.Screen
         name="NewPlace"
         component={NewPlaceScreen}

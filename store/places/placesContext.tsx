@@ -9,6 +9,7 @@ const initialValues: PlacesStateType = {
     id: "",
     title: "",
     image: "",
+    location: {},
   } as PlaceModel,
   loading: false,
 };
@@ -31,6 +32,7 @@ const PlacesContext = () => {
           store.places = dbResult.rows._array;
         });
       } catch (e) {
+        console.log(e);
         alert("Something happened. Please try again later.");
       }
 
@@ -39,22 +41,29 @@ const PlacesContext = () => {
       });
     },
 
-    async createPlaceAction(newPlace: PlaceModel) {
+    async createPlaceAction({ title, image, location }: PlaceModel) {
       runInAction(() => {
         store.loading = true;
       });
 
       try {
-        const dbResult = await insertPlace(newPlace);
+        const dbResult = await insertPlace(
+          title,
+          image,
+          location?.lat,
+          location?.lng
+        );
         console.log(dbResult);
         runInAction(() => {
           store.places.push({
             id: dbResult.insertId,
-            title: newPlace.title,
-            image: newPlace.image,
+            title,
+            image,
+            location,
           });
         });
       } catch (e) {
+        console.log(e);
         alert("Something happened. Please try again later.");
       }
 

@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "../../navigation/navigationTypes";
 import { RouteProp } from "@react-navigation/native";
-import { LocationType } from "../../components/LocationPicker/LocationPicker";
+import { LocationType } from "../../store/places/placesTypes";
 import MapView, { Marker } from "react-native-maps";
 import s from "./styles";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";

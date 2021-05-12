@@ -3,8 +3,8 @@ import {
   requestForegroundPermissionsAsync,
 } from "expo-location";
 import { Alert } from "react-native";
-import { useEffect, useState } from "react";
-import { LocationType } from "../components/LocationPicker/LocationPicker";
+import { useState } from "react";
+import { LocationType } from "../store/places/placesTypes";
 
 export const useLocation = (initLocation: LocationType) => {
   const [isFetching, setIsFetching] = useState(false);
@@ -27,9 +27,7 @@ export const useLocation = (initLocation: LocationType) => {
     try {
       const {
         coords: { latitude, longitude },
-      } = await getLastKnownPositionAsync({
-        timeout: 5000,
-      });
+      } = await getLastKnownPositionAsync({ accuracy: 6 });
       setLocation({
         lat: latitude,
         lng: longitude,
