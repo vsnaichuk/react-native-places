@@ -27,8 +27,8 @@ const PlacesContext = () => {
 
       try {
         const dbResult = await fetchPlaces();
-        console.log(dbResult);
         runInAction(() => {
+          console.log(dbResult.rows);
           store.places = dbResult.rows._array;
         });
       } catch (e) {
@@ -53,7 +53,6 @@ const PlacesContext = () => {
           location?.lat,
           location?.lng
         );
-        console.log(dbResult);
         runInAction(() => {
           store.places.push({
             id: dbResult.insertId,

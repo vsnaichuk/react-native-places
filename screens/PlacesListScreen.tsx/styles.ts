@@ -3,8 +3,11 @@ import Colors from "../../constants/Colors";
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    paddingTop: 25,
+    paddingBottom: 0,
+    paddingHorizontal: 20,
     backgroundColor: Colors.light,
+    borderRadius: 20,
   },
 });
 

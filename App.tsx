@@ -5,13 +5,13 @@ import PlacesNavigator from "./navigation/MainNavigator";
 import { init } from "./helpers/db";
 
 init()
-  .then(() => {
-    console.log("Initialized database");
-  })
-  .catch((err) => {
-    console.log("Initializing db failed.");
-    console.log(err);
-  });
+    .then(() => {
+        console.log("Initialized database");
+    })
+    .catch((err) => {
+        console.log("Initializing db failed.");
+        console.log(err);
+    });
 
 type Props = {};
 

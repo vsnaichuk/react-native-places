@@ -9,7 +9,7 @@ export type LocationType = {
 };
 
 export type PlaceModel = {
-  id?: string;
+  id: string;
   title: string;
   image: string;
   location: LocationType;

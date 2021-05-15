@@ -9,9 +9,12 @@ import { useNavigation } from "@react-navigation/native";
 import Input from "../../components/Input/Input";
 import LocationPicker from "../../components/LocationPicker/LocationPicker";
 import { LocationType } from "../../store/places/placesTypes";
+import { observer } from "mobx-react-lite";
 
-const NewPlaceScreen: FC = () => {
-  const { placesStore } = useContext(RootStoreContext);
+const NewPlaceScreen: FC = observer(() => {
+  const {
+    placesStore: { createPlaceAction },
+  } = useContext(RootStoreContext);
   const navigation = useNavigation();
 
   const [titleValue, setTitleValue] = useState<string>("");
@@ -27,13 +30,14 @@ const NewPlaceScreen: FC = () => {
   }, []);
 
   const savePlaceHandler = async () => {
-    await placesStore.createPlaceAction({
+    await createPlaceAction({
+      id: "",
       title: titleValue,
       image: selectedImage,
       location: selectedLocation,
     });
-    await placesStore.getPlacesAction();
-    // navigation.goBack();
+
+    navigation.navigate("Places");
   };
 
   return (
@@ -48,6 +52,6 @@ const NewPlaceScreen: FC = () => {
       <Button title="Save Place" onPress={savePlaceHandler} />
     </Screen>
   );
-};
+});
 
 export default NewPlaceScreen;

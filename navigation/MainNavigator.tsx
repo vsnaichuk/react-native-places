@@ -9,7 +9,7 @@ const PlacesNavigator: FC = () => {
   const Stack = createStackNavigator<RootStackParamList>();
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="Places"
         component={PlacesListScreen}
@@ -20,7 +20,6 @@ const PlacesNavigator: FC = () => {
           },
         }}
       />
-
       <Stack.Screen
         name="NewPlace"
         component={NewPlaceScreen}

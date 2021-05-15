@@ -32,10 +32,15 @@ type Props = {
 };
 
 const Card: FC<Props> = ({ title, image }) => {
-  console.log(title, image);
   return (
     <View style={s.card}>
-      <Image style={s.image} source={image} />
+      <Image
+        style={s.image}
+        source={{
+          uri:
+            "https://cdn.pixabay.com/photo/2021/04/13/09/50/road-6175186_960_720.jpg",
+        }}
+      />
       <View style={s.detailsContainer}>
         <Text style={s.title} numberOfLines={1}>
           {title}
