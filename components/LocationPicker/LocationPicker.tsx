@@ -3,9 +3,10 @@ import { TouchableWithoutFeedback, View } from "react-native";
 import s from "./styles";
 import { useLocation } from "../../hooks/useLocation";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { RootStackParamList } from "../../navigation/navigationTypes";
+import { CreatePlaceParams } from "../../navigation/navigationTypes";
 import { LocationType } from "../../store/places/placesTypes";
 import MapPreview from "../MapPreview";
+import routes from "../../navigation/routes";
 
 type Props = {
   onLocationPicked: (location: LocationType) => void;
@@ -16,7 +17,7 @@ const LocationPicker: FC<Props> = ({ onLocationPicked }) => {
   const [pickedLocation, setPickedLocation] = useState<LocationType>({});
   const [location, isFetching, getLocation] = useLocation({});
   const { navigate } = useNavigation();
-  const { params } = useRoute<RouteProp<RootStackParamList, "NewPlace">>();
+  const { params } = useRoute<RouteProp<CreatePlaceParams, "NewPlace">>();
   const mapPickedLocation = params?.mapPickedLocation;
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const LocationPicker: FC<Props> = ({ onLocationPicked }) => {
   }, [location, mapPickedLocation, onLocationPicked]);
 
   const pickOnMap = () => {
-    navigate("Map", { initLocation: mapPickedLocation || location });
+    navigate(routes.MAP, { initLocation: mapPickedLocation || location });
   };
 
   const getMapLocation = async () => {

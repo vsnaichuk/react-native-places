@@ -1,47 +1,55 @@
 import React, { FC } from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import NewPlaceScreen from "../screens/NewPlaceScreen/NewPlaceScreen";
-import MapScreen from "../screens/MapScreen/MapScreen";
-import { RootStackParamList } from "./navigationTypes";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { RootTabParams } from "./navigationTypes";
 import PlacesListScreen from "../screens/PlacesListScreen.tsx/PlacesListScreen";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import CreatePlaceNavigator from "./CreatePlaceNavigator";
+import CreatePlaceButton from "../components/CreatePlaceButton";
+import MapScreen from "../screens/MapScreen/MapScreen";
+import routes from "./routes";
 
 const PlacesNavigator: FC = () => {
-  const Stack = createStackNavigator<RootStackParamList>();
+  const Tab = createBottomTabNavigator<RootTabParams>();
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
+    <Tab.Navigator>
+      <Tab.Screen
         name="Places"
         component={PlacesListScreen}
         options={{
-          title: "Places",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" color={color} size={size} />
+          ),
         }}
       />
-      <Stack.Screen
-        name="NewPlace"
-        component={NewPlaceScreen}
-        options={{
-          title: "New Place",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-        }}
+      <Tab.Screen
+        name="CreatePlace"
+        component={CreatePlaceNavigator}
+        options={({ navigation }) => ({
+          tabBarButton: () => (
+            <CreatePlaceButton
+              onPress={() => navigation.navigate(routes.CREATE_PLACE)}
+            />
+          ),
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="plus-circle"
+              color={color}
+              size={size}
+            />
+          ),
+        })}
       />
-
-      <Stack.Screen
+      <Tab.Screen
         name="Map"
         component={MapScreen}
         options={{
-          title: "Pick on Map",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="map" color={color} size={size} />
+          ),
         }}
       />
-    </Stack.Navigator>
+    </Tab.Navigator>
   );
 };
 

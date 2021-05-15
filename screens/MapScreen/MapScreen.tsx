@@ -1,28 +1,24 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { RootStackParamList } from "../../navigation/navigationTypes";
+import { CreatePlaceParams } from "../../navigation/navigationTypes";
 import { RouteProp } from "@react-navigation/native";
 import { LocationType } from "../../store/places/placesTypes";
 import MapView, { Marker } from "react-native-maps";
 import s from "./styles";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { Platform } from "react-native";
 import Screen from "../../components/Screen/Screen";
-import HeaderButton from "../../components/HeaderButton";
+import routes from "../../navigation/routes";
+import MapHeaderButton from "./MapHeaderButton";
 
 const MapScreen: FC = () => {
   const { navigate, setOptions } = useNavigation();
-  const {
-    params: { initLocation },
-  } = useRoute<RouteProp<RootStackParamList, "Map">>();
-
+  const { params } = useRoute<RouteProp<CreatePlaceParams, "Map">>();
   const [selectedLocation, setSelectedLocation] = useState<LocationType>(
-    initLocation
+    params?.initLocation || {}
   );
 
   const mapRegion = {
-    latitude: initLocation?.lat || 37.78,
-    longitude: initLocation?.lng || -122.43,
+    latitude: selectedLocation?.lat || 37.78,
+    longitude: selectedLocation?.lng || -122.43,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
@@ -35,30 +31,20 @@ const MapScreen: FC = () => {
   };
 
   let markerCoordinates = {
-    latitude: selectedLocation?.lat || initLocation.lat,
-    longitude: selectedLocation?.lng || initLocation.lng,
+    latitude: selectedLocation?.lat || 37.78,
+    longitude: selectedLocation?.lng || -122.43,
   };
 
   const submitPickedLocation = useCallback(() => {
     if (!selectedLocation) {
       return;
     }
-    navigate("NewPlace", { mapPickedLocation: selectedLocation });
+    navigate(routes.NEW_PLACE, { mapPickedLocation: selectedLocation });
   }, [selectedLocation]);
 
   useEffect(() => {
     setOptions({
-      headerRight: () => (
-        <HeaderButtons HeaderButtonComponent={HeaderButton}>
-          <Item
-            title="Save"
-            iconName={
-              Platform.OS === "android" ? "md-checkmark" : "ios-checkmark"
-            }
-            onPress={submitPickedLocation}
-          />
-        </HeaderButtons>
-      ),
+      headerRight: () => <MapHeaderButton onPress={submitPickedLocation} />,
     });
   }, [submitPickedLocation]);
 

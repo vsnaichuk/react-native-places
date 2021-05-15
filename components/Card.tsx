@@ -17,10 +17,6 @@ const s = StyleSheet.create({
     width: "100%",
     height: 200,
   },
-  subTitle: {
-    color: Colors.secondary,
-    fontWeight: "bold",
-  },
   title: {
     marginBottom: 7,
   },
@@ -37,8 +33,7 @@ const Card: FC<Props> = ({ title, image }) => {
       <Image
         style={s.image}
         source={{
-          uri:
-            "https://cdn.pixabay.com/photo/2021/04/13/09/50/road-6175186_960_720.jpg",
+          uri: image,
         }}
       />
       <View style={s.detailsContainer}>

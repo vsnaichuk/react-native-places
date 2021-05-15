@@ -10,6 +10,7 @@ import Input from "../../components/Input/Input";
 import LocationPicker from "../../components/LocationPicker/LocationPicker";
 import { LocationType } from "../../store/places/placesTypes";
 import { observer } from "mobx-react-lite";
+import routes from "../../navigation/routes";
 
 const NewPlaceScreen: FC = observer(() => {
   const {
@@ -37,7 +38,7 @@ const NewPlaceScreen: FC = observer(() => {
       location: selectedLocation,
     });
 
-    navigation.navigate("Places");
+    navigation.navigate(routes.PLACES);
   };
 
   return (
