@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { CreatePlaceParams } from "../../navigation/navigationTypes";
+import { CreatePlaceStackParams } from "../../navigation/navigationTypes";
 import { RouteProp } from "@react-navigation/native";
 import { LocationType } from "../../store/places/placesTypes";
 import MapView, { Marker } from "react-native-maps";
@@ -11,7 +11,7 @@ import MapHeaderButton from "./MapHeaderButton";
 
 const MapScreen: FC = () => {
   const { navigate, setOptions } = useNavigation();
-  const { params } = useRoute<RouteProp<CreatePlaceParams, "Map">>();
+  const { params } = useRoute<RouteProp<CreatePlaceStackParams, "Map">>();
   const [selectedLocation, setSelectedLocation] = useState<LocationType>(
     params?.initLocation || {}
   );

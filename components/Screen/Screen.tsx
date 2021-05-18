@@ -4,7 +4,7 @@ import s from "./styles";
 
 type Props = {
   children: ReactNode;
-  style: object;
+  style: {};
 };
 
 const Screen: FC<Props> = ({ children, style }) => {

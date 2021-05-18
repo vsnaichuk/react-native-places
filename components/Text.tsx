@@ -11,7 +11,7 @@ const s = StyleSheet.create({
 
 type Props = {
   children: ReactNode;
-  style: object;
+  style?: {};
   [index: string]: any;
 };
 

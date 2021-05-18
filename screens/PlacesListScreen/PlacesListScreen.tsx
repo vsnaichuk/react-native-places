@@ -13,8 +13,10 @@ import { ActivityIndicator, FlatList, Text } from "react-native";
 import Card from "../../components/Card";
 import { observer } from "mobx-react-lite";
 import Colors from "../../constants/Colors";
+import PlaceItem from "../../components/PlaceItem";
 
 const PlacesListScreen: FC = observer(() => {
+  const { navigate } = useNavigation();
   const {
     placesStore: { places, getPlacesAction, loading },
   } = useContext(RootStoreContext);
@@ -22,6 +24,12 @@ const PlacesListScreen: FC = observer(() => {
   useEffect(() => {
     getPlacesAction();
   }, []);
+
+  const onSelectHandler = (id: string) => {
+    navigate("PlacesDetails", {
+      placeId: id,
+    });
+  };
 
   return (
     <Screen style={s.container}>
@@ -31,8 +39,10 @@ const PlacesListScreen: FC = observer(() => {
       {places && (
         <FlatList
           data={places}
-          keyExtractor={(place: PlaceModel) => place.id.toString()}
-          renderItem={({ item }) => <Card {...item} />}
+          keyExtractor={(place: PlaceModel) => place.id}
+          renderItem={({ item }) => (
+            <PlaceItem onSelect={() => onSelectHandler(item.id)} {...item} />
+          )}
         />
       )}
     </Screen>

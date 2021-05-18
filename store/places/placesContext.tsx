@@ -55,7 +55,7 @@ const PlacesContext = () => {
         );
         runInAction(() => {
           store.places.push({
-            id: dbResult.insertId,
+            id: dbResult.insertId.toString(),
             title,
             image,
             location,

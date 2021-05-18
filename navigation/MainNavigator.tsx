@@ -1,21 +1,21 @@
 import React, { FC } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { RootTabParams } from "./navigationTypes";
-import PlacesListScreen from "../screens/PlacesListScreen.tsx/PlacesListScreen";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import CreatePlaceNavigator from "./CreatePlaceNavigator";
 import CreatePlaceButton from "../components/CreatePlaceButton";
 import MapScreen from "../screens/MapScreen/MapScreen";
 import routes from "./routes";
+import PlacesNavigator from "./PlacesNavigator";
 
-const PlacesNavigator: FC = () => {
+const MainNavigator: FC = () => {
   const Tab = createBottomTabNavigator<RootTabParams>();
 
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="Places"
-        component={PlacesListScreen}
+        component={PlacesNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
@@ -53,4 +53,4 @@ const PlacesNavigator: FC = () => {
   );
 };
 
-export default PlacesNavigator;
+export default MainNavigator;

@@ -1,6 +1,5 @@
 import React, { FC, ReactNode } from "react";
-import { View, StyleSheet, Image } from "react-native";
-import Text from "./Text";
+import { View, StyleSheet } from "react-native";
 import Colors from "../constants/Colors";
 
 const s = StyleSheet.create({
@@ -10,39 +9,15 @@ const s = StyleSheet.create({
     marginBottom: 20,
     overflow: "hidden",
   },
-  detailsContainer: {
-    padding: 20,
-  },
-  image: {
-    width: "100%",
-    height: 200,
-  },
-  title: {
-    marginBottom: 7,
-  },
 });
 
 type Props = {
-  title: string;
-  image: string;
+  children: ReactNode;
+  style?: {};
 };
 
-const Card: FC<Props> = ({ title, image }) => {
-  return (
-    <View style={s.card}>
-      <Image
-        style={s.image}
-        source={{
-          uri: image,
-        }}
-      />
-      <View style={s.detailsContainer}>
-        <Text style={s.title} numberOfLines={1}>
-          {title}
-        </Text>
-      </View>
-    </View>
-  );
+const Card: FC<Props> = ({ children, style }) => {
+  return <View style={[s.card, style]}>{children}</View>;
 };
 
 export default Card;

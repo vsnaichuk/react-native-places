@@ -1,13 +1,13 @@
 import React, { FC } from "react";
 import NewPlaceScreen from "../screens/NewPlaceScreen/NewPlaceScreen";
 import MapScreen from "../screens/MapScreen/MapScreen";
-import { CreatePlaceParams } from "./navigationTypes";
+import { CreatePlaceStackParams } from "./navigationTypes";
 import { createStackNavigator } from "@react-navigation/stack";
 import Colors from "../constants/Colors";
 import { Platform } from "react-native";
 
 const CreatePlaceNavigator: FC = () => {
-  const Stack = createStackNavigator<CreatePlaceParams>();
+  const Stack = createStackNavigator<CreatePlaceStackParams>();
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
