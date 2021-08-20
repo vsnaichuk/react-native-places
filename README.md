@@ -3,12 +3,7 @@
   <a href="https://expo.dev/@v_snaichuk/rn-places" target="_blank">rn-places</a>
 </h2>
 
-
-<div align="center">
-
 ![](https://res.cloudinary.com/dx6tl6aa2/image/upload/v1629479477/portfolio/project-places-rn-github-readme_twxgzq.gif)
-</div>
-
 
 
 ## Overview
