@@ -2,9 +2,13 @@
   React Native Places<br/>
   <a href="https://expo.dev/@v_snaichuk/rn-places" target="_blank">rn-places</a>
 </h2>
+
+
 <div align="center">
-  <img alt="Demo" src="https://res.cloudinary.com/dx6tl6aa2/image/upload/v1629479045/portfolio/project-places-rn-github-readme_qioxwn.gif" />
+
+![](https://res.cloudinary.com/dx6tl6aa2/image/upload/v1629479045/portfolio/project-places-rn-github-readme_qioxwn.gif)
 </div>
+
 
 
 ## Overview
