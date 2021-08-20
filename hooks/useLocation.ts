@@ -1,5 +1,5 @@
 import {
-  getLastKnownPositionAsync,
+  getCurrentPositionAsync,
   requestForegroundPermissionsAsync,
 } from "expo-location";
 import { Alert } from "react-native";
@@ -27,7 +27,7 @@ export const useLocation = (initLocation: LocationType) => {
     try {
       const {
         coords: { latitude, longitude },
-      } = await getLastKnownPositionAsync({ accuracy: 6 });
+      } = await getCurrentPositionAsync();
       setLocation({
         lat: latitude,
         lng: longitude,
