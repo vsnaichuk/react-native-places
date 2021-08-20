@@ -6,7 +6,7 @@
 
 <div align="center">
 
-![](https://media.giphy.com/media/8MbqryXJejAouKi3oD/giphy.gif?cid=790b76113974857c10ef9d6d8019452ac2bd619262aa8538&rid=giphy.gif&ct=g)
+![](https://media.giphy.com/media/YmDL70TYeSFgxEFkm3/giphy.gif)
 </div>
 
 
