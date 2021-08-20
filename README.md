@@ -6,7 +6,7 @@
 
 <div align="center">
 
-![](https://res.cloudinary.com/dx6tl6aa2/image/upload/v1629479045/portfolio/project-places-rn-github-readme_qioxwn.gif)
+![](https://res.cloudinary.com/dx6tl6aa2/image/upload/v1629479477/portfolio/project-places-rn-github-readme_twxgzq.gif)
 </div>
 
 
